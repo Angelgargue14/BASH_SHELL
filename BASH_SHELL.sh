@@ -1,3 +1,4 @@
+/home/despliegue/scripts_produccion/despliegue/listar_Procesos_desincronizados.sh
 =================================
 Guía de shell-script (bash) 
 =================================
@@ -584,7 +585,14 @@ case $var in
     echo "¡Opción inválida!"
     ;;
 esac
-
+============
+BUCLES WHILE
+============
+PARA LEER FICHEROS LINEA A LINEA:
+while read -r line
+do
+  echo "$line" #muestra linea a linea del fichero fichero.txt
+done < fichero.txt
 ============
 BUCLES FOR
 ============
@@ -606,6 +614,19 @@ do
 echo $i; 
 done
 
+=====================
+        DIFF
+=====================
+Comando usado para comparar si dos archivos son iguales, es decir tienen el mismo contenido.
+
+--$diff <opciones> archivo1 archivo2
+
+----MEJORES OPCIONES
+   -s: informa si los archivos son iguales o no, es decir, escribe estos ficheros son identicos o estos ficheros no lo son es muy util para rehusar luego con un grep
+   -q: solo muestra los archivos que no son iguales
+   -y: separa como en dos columnas para ver nosotros de un viztazo los cambios. muy util.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 =======================
 ---------SED----------
@@ -641,9 +662,12 @@ Queremos cambiar la letra O por la o, lo hacemos así:
 y ahora sedexamplesnew contiene:
 "Para que libreoffice..."
 
-Si queremos reemplazar todas las o minusculas 
-
-
+development@ESMADLX22PROC1DEV:~/spcrm/process/backoffice/afol$ echo "hola y adios" | sed "s/^.* //"
+adios
+development@ESMADLX22PROC1DEV:~/spcrm/process/backoffice/afol$ echo "hola y adios2" | sed "s/^.* adios//"
+2
+development@ESMADLX22PROC1DEV:~/spcrm/process/backoffice/afol$ echo "hola y adios2" | sed "s/adi.*$//"
+hola y
 
 ----------------------------------------
 
@@ -755,3 +779,59 @@ php artisan db:seed
 echo "--- Guardados datos en la base de datos ---"
 
 echo "--- Listo!!! ---"
+
+====================
+        sort
+====================
+--> El comando sort ordena las líneas de texto de forma útil. esta sencilla herramienta puede ayudarte a ordenar
+rápidamente la información desde la línea de comandos.
+
+sort [opciones] <archivo>
+
+  -  Cuando se utiliza la ordenación sin ninguna opción, se aplican las reglas por defecto.  Es útil entender 
+     las reglas por defecto para evitar resultados inesperados.
+  -  Cuando se utiliza la ordenación, los datos originales están a salvo.  Los resultados de su entrada se muestran 
+     sólo en la línea de comandos.  Sin embargo, puedes especificar la salida a un archivo separado si lo desea.
+  -  Sort fue originalmente diseñado para ser usado con caracteres ASCII.  diferentes codificaciones, pueden producir 
+     resultados inesperados.
+
+------> REGLAS POR DEFECTO
+  -  números > letras
+  -  minúsculas > mayúsculas
+
+------> EJEMPLOS ÚTILES
+  - Ordenar alfabéticamente:
+    --$ sort filename.txt
+  - Ordenar por valor numérico:
+    --$ sort numeros.txt -n
+  - Orden inverso:
+    --$ sort filename.txt -r
+  - Ordenación aleatoria:
+    --$ sort filename.txt -R
+  - Ordenar por meses:
+    --$ sort filename -M
+  - Ordenar una columna específica:
+    --$ sort filename.txt -k 2
+  - Ordenar y eliminar duplicados_
+    --$ sort filename.txt -u
+  - Ignorar mayúsculas y minúsculas al ordenar
+    --$ sort filename.txt -f
+
+====================
+        uniq
+====================
+
+comando que permite borrar o mostrar las líneas repetidas de un archivo o bien provenientes de la entrada estándar
+
+ - Eliminar líneas repetidas
+--$ uniq file.txt
+ - Recuento del número de repeticiones
+--$ uniq -c file.txt
+ - Repetir solo las líneas repetidas
+--$ uniq -D file.txt
+ - Imprimir solo las líneas no repetidas
+--$ uniq -u file.txt
+
+Si las líneas repetidas no están juntas no lo coge, primero hay que ordenar el documento, para esto tenemos el siguiente
+comando sort
+
